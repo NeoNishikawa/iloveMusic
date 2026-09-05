@@ -171,10 +171,10 @@
 </button>
 <span class="font-headline-sm text-on-surface uppercase tracking-wider">Aura</span>
 </div>
-<div class="hidden md:flex items-center gap-space-3 w-96 bg-surface-container-high/50 px-space-3 py-space-2 rounded-xl border border-outline-variant/30 cursor-pointer" id="desktop-search-trigger">
+<!-- SEARCH BAR LANGSUNG DI HEADER (tanpa modal) -->
+<div class="hidden md:flex items-center gap-space-3 w-96 bg-surface-container-high/50 px-space-3 py-space-2 rounded-xl border border-outline-variant/30 focus-within:border-primary transition-colors" id="desktop-search-bar">
 <span class="material-symbols-outlined text-on-surface-variant text-[18px]">search</span>
-<span class="text-body-md text-on-surface-variant">Search tracks, artists, or albums...</span>
-<span class="ml-auto text-label-sm bg-surface-container px-space-2 py-0.5 rounded text-on-surface-variant">⌘K</span>
+<input class="bg-transparent text-on-surface text-body-md outline-none w-full placeholder:text-on-surface-variant" id="header-search-input" placeholder="Search tracks, artists, or albums..." type="text"/>
 </div>
 <div class="flex items-center gap-space-4">
 <button class="md:hidden w-10 h-10 rounded-xl bg-surface-container-high/50 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" id="mobile-search-trigger">
@@ -192,31 +192,13 @@
 </header>
 <main class="relative pt-20 md:pt-24 pb-32 bg-surface min-h-screen">
 <div class="flex flex-col w-full relative">
-<!-- Custom cursor glow element -->
+<!-- Custom cursor glow -->
 <div class="fixed pointer-events-none w-96 h-96 rounded-full bg-primary/10 blur-[96px] z-50 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 opacity-0" id="cursor-glow"></div>
-<!-- Particle background canvas -->
+<!-- Particle background -->
 <canvas class="fixed inset-0 pointer-events-none z-0 opacity-40" id="particle-canvas"></canvas>
-<!-- Search Command Center Modal -->
-<div class="fixed inset-0 z-50 bg-surface-dim/80 backdrop-blur-md hidden items-center justify-center p-space-6" id="search-modal">
-<div class="w-full max-w-2xl bg-surface-container border border-outline-variant/30 rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col">
-<div class="flex items-center px-space-6 py-space-4 border-b border-outline-variant/20 gap-space-3">
-<span class="material-symbols-outlined text-primary">search</span>
-<input class="bg-transparent text-on-surface text-body-lg outline-none w-full placeholder:text-on-surface-variant" id="modal-search-input" placeholder="Search tracks, artists, albums, or playlists..." type="text"/>
-<button class="text-on-surface-variant hover:text-on-surface p-space-1" id="close-search"><span class="material-symbols-outlined">close</span></button>
-</div>
-<div class="max-h-96 overflow-y-auto p-space-4 flex flex-col gap-space-2" id="search-results-container">
-<div class="text-label-sm text-on-surface-variant uppercase tracking-wider px-space-2 py-space-1">Quick Suggestions</div>
-<div class="flex flex-wrap gap-space-2 p-space-2">
-<span class="px-space-3 py-space-1 bg-surface-container-high rounded-full text-body-sm text-on-surface cursor-pointer hover:bg-primary-container hover:text-on-primary-container transition-colors">Cyberpunk Bass</span>
-<span class="px-space-3 py-space-1 bg-surface-container-high rounded-full text-body-sm text-on-surface cursor-pointer hover:bg-primary-container hover:text-on-primary-container transition-colors">Midnight Synthwave</span>
-<span class="px-space-3 py-space-1 bg-surface-container-high rounded-full text-body-sm text-on-surface cursor-pointer hover:bg-primary-container hover:text-on-primary-container transition-colors">Kavinsky</span>
-<span class="px-space-3 py-space-1 bg-surface-container-high rounded-full text-body-sm text-on-surface cursor-pointer hover:bg-primary-container hover:text-on-primary-container transition-colors">Lo-Fi Rain</span>
-</div>
-</div>
-</div>
-</div>
+
 <!-- Hero Section -->
-<section class="relative w-full min-h-[600px] lg:min-h-[819px] flex items-center px-4 md:px-space-8 py-space-8 overflow-hidden rounded-2xl bg-gradient-to-br from-surface-container-lowest via-surface-container to-surface-dim mb-space-8">
+<section class="relative w-full min-h-[600px] lg:min-h-[819px] flex items-center px-4 md:px-space-8 py-space-8 overflow-hidden rounded-2xl bg-gradient-to-br from-surface-container-lowest via-surface-container to-surface-dim mb-space-8" id="hero-section">
 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-container/20 via-transparent to-transparent pointer-events-none"></div>
 <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-8 w-full items-center">
 <div class="lg:col-span-7 flex flex-col gap-space-6">
@@ -229,22 +211,20 @@
 <div class="flex flex-wrap items-center gap-space-4 pt-space-2">
 <button class="px-space-6 py-space-3 rounded-xl bg-primary text-on-primary font-medium hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,179,179,0.3)] flex items-center gap-space-2" id="hero-explore-btn">
 <span class="material-symbols-outlined">explore</span> Explore Music
-              </button>
+</button>
 <button class="px-space-6 py-space-3 rounded-xl bg-surface-container-high/80 border border-secondary/30 text-secondary font-medium hover:bg-surface-container-high hover:scale-105 transition-all flex items-center gap-space-2" id="hero-listen-btn">
 <span class="material-symbols-outlined">play_arrow</span> Start Listening
-              </button>
+</button>
 </div>
 <div class="flex flex-wrap items-center gap-space-6 pt-space-4 text-body-sm text-on-surface-variant">
-<div class="flex items-center gap-space-2"><span class="text-headline-sm text-secondary">24-Bit</span> Lossless Audio</div>
+<div class="flex items-center gap-space-2"><span class="text-headline-sm text-secondary">Spotify</span> Search</div>
 <div class="w-1 h-1 rounded-full bg-outline hidden sm:block"></div>
-<div class="flex items-center gap-space-2"><span class="text-headline-sm text-primary">Dolby</span> Atmos Spatial</div>
-<div class="w-1 h-1 rounded-full bg-outline hidden sm:block"></div>
-<div class="flex items-center gap-space-2"><span class="text-headline-sm text-on-surface">192kHz</span> Master Quality</div>
+<div class="flex items-center gap-space-2"><span class="text-headline-sm text-primary">Live</span> Catalog Data</div>
 </div>
 </div>
 <div class="lg:col-span-5 flex items-center justify-center relative">
 <div class="relative w-72 h-72 lg:w-96 lg:h-96 rounded-2xl bg-surface-container-high p-space-4 shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-outline-variant/30 transition-transform duration-200 ease-out group cursor-pointer" id="tilt-card">
-<div class="absolute inset-0 bg-cover bg-center rounded-xl opacity-80 group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBT4QCLKDdTGg-ef77DMitMW-bunTM6RWBaxcMfYM9i-RMA7Z7hVrJv7iV0NDJAd4ZftJ0pc0M1Em9TImV6T_lX1DjEVZGt3r9Rzb_LAeKD5A9BiHkZdahBVHClSWvC2YpAjjLN48_9CcC0S9jsJb-9igpYhTelliPSxUiin2neI3MM2JUXZdLi9bo_s5V4YnhFxk6kdWzMwXTJ1BAx8WuKmq4nbEpirCLdjK4KjRrMOzW3Jn3yBvU7XA')"></div>
+<div class="absolute inset-0 bg-cover bg-center rounded-xl opacity-80 group-hover:scale-105 transition-transform duration-500" style="background-image: url('Neko-Hyouta.jpg')"></div>
 <div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent rounded-xl"></div>
 <div class="absolute inset-12 rounded-full border-4 border-dashed border-secondary/40 flex items-center justify-center animate-spin" id="vinyl-disc" style="animation-duration: 12s;">
 <div class="w-24 h-24 rounded-full bg-primary-container border-2 border-secondary flex items-center justify-center shadow-[0_0_30px_rgba(233,195,73,0.5)]">
@@ -253,8 +233,8 @@
 </div>
 <div class="absolute bottom-space-4 left-space-4 right-space-4 flex items-center justify-between z-10">
 <div>
-<div class="text-headline-sm text-on-surface">Subterranean Echoes</div>
-<div class="text-body-sm text-secondary">Kavinsky &amp; The Void</div>
+<div class="text-headline-sm text-on-surface">Discover music</div>
+<div class="text-body-sm text-secondary">Search Spotify catalog</div>
 </div>
 <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg">
 <span class="material-symbols-outlined">play_arrow</span>
@@ -264,8 +244,23 @@
 </div>
 </div>
 </section>
+
+<!-- ===== SECTION HASIL SEARCH (BARU) ===== -->
+<section class="w-full mb-space-8" id="search-results-section" style="display: none;">
+  <div class="flex items-center justify-between mb-space-6">
+    <div>
+      <span class="text-label-sm text-secondary uppercase tracking-wider">Search</span>
+      <h2 class="text-headline-md text-on-surface font-headline-md">Results for "<span id="search-query-text"></span>"</h2>
+    </div>
+    <button class="text-label-lg text-primary hover:underline flex items-center gap-space-1" id="clear-search-results">Clear <span class="material-symbols-outlined text-[16px]">close</span></button>
+  </div>
+  <div class="flex flex-col gap-space-4" id="search-results-list">
+    <!-- Akan diisi oleh JavaScript -->
+  </div>
+</section>
+
 <!-- Trending Songs Section -->
-<section class="w-full mb-space-8">
+<section class="w-full mb-space-8" id="trending-section">
 <div class="flex items-center justify-between mb-space-6">
 <div>
 <span class="text-label-sm text-secondary uppercase tracking-wider">Charts</span>
@@ -275,8 +270,9 @@
 </div>
 <div class="flex flex-col gap-space-2" id="trending-songs-list"></div>
 </section>
+
 <!-- Popular Artists Section -->
-<section class="w-full mb-space-8">
+<section class="w-full mb-space-8" id="artists-section">
 <div class="flex items-center justify-between mb-space-6">
 <div>
 <span class="text-label-sm text-secondary uppercase tracking-wider">Icons</span>
@@ -286,8 +282,9 @@
 </div>
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-space-6" id="popular-artists-grid"></div>
 </section>
+
 <!-- Featured Albums Section -->
-<section class="w-full mb-space-8">
+<section class="w-full mb-space-8" id="albums-section">
 <div class="flex items-center justify-between mb-space-6">
 <div>
 <span class="text-label-sm text-secondary uppercase tracking-wider">Releases</span>
@@ -297,8 +294,9 @@
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-6" id="featured-albums-grid"></div>
 </section>
+
 <!-- Genre Section -->
-<section class="w-full mb-space-8">
+<section class="w-full mb-space-8" id="genres-section">
 <div class="flex items-center justify-between mb-space-6">
 <div>
 <span class="text-label-sm text-secondary uppercase tracking-wider">Explore</span>
@@ -307,9 +305,10 @@
 </div>
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-space-4" id="genres-grid"></div>
 </section>
+
 <!-- Recommended Playlists & Recently Played -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-8 mb-space-8">
-<section class="w-full">
+<section class="w-full" id="playlists-section">
 <div class="flex items-center justify-between mb-space-6">
 <div>
 <span class="text-label-sm text-secondary uppercase tracking-wider">Curated</span>
@@ -318,7 +317,7 @@
 </div>
 <div class="flex flex-col gap-space-4" id="playlists-grid"></div>
 </section>
-<section class="w-full">
+<section class="w-full" id="recently-played-section">
 <div class="flex items-center justify-between mb-space-6">
 <div>
 <span class="text-label-sm text-secondary uppercase tracking-wider">History</span>
@@ -329,53 +328,43 @@
 </section>
 </div>
 </div>
+
 <script>
-      const musicData = {
-        songs: [
-          { id: 1, rank: "01", title: "Subterranean Echoes", artist: "Kavinsky & The Void", plays: "4,291,040", duration: "3:45", trend: "up", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop&q=80" },
-          { id: 2, rank: "02", title: "Neon Genesis", artist: "Aethelgard", plays: "3,812,900", duration: "4:12", trend: "up", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=100&auto=format&fit=crop&q=80" },
-          { id: 3, rank: "03", title: "Midnight Solitude", artist: "Celine Vesper", plays: "2,940,112", duration: "3:18", trend: "same", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&auto=format&fit=crop&q=80" },
-          { id: 4, rank: "04", title: "Quantum Pulse", artist: "Sintax Error", plays: "2,109,450", duration: "5:01", trend: "up", image: "https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?w=100&auto=format&fit=crop&q=80" },
-          { id: 5, rank: "05", title: "Obsidian Dreams", artist: "Nyx Nocturne", plays: "1,980,223", duration: "2:55", trend: "down", image: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=100&auto=format&fit=crop&q=80" }
-        ],
-        artists: [
-          { id: 1, name: "Kavinsky", role: "Synthwave Pioneer", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" },
-          { id: 2, name: "Aethelgard", role: "Dark Ambient", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80" },
-          { id: 3, name: "Celine Vesper", role: "Ethereal Vocalist", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80" },
-          { id: 4, name: "Sintax Error", role: "Cyberpunk Producer", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80" },
-          { id: 5, name: "Nyx Nocturne", role: "Nocturnal Jazz", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&auto=format&fit=crop&q=80" },
-          { id: 6, name: "The Void", role: "Experimental", image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop&q=80" }
-        ],
-        albums: [
-          { id: 1, title: "Chronicles of Glass", artist: "Kavinsky", tracks: "12 Tracks", image: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&auto=format&fit=crop&q=80" },
-          { id: 2, title: "Nocturne Protocol", artist: "Aethelgard", tracks: "8 Tracks", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&auto=format&fit=crop&q=80" },
-          { id: 3, title: "Sub-Zero Lounge", artist: "Celine Vesper", tracks: "10 Tracks", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&auto=format&fit=crop&q=80" },
-          { id: 4, title: "Binary Sunset", artist: "Sintax Error", tracks: "14 Tracks", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=300&auto=format&fit=crop&q=80" }
-        ],
-        genres: [
-          { name: "Electronic", count: "14.2k tracks", color: "from-primary-container to-primary" },
-          { name: "Synthwave", count: "8.9k tracks", color: "from-secondary-container to-secondary" },
-          { name: "Dark Ambient", count: "5.4k tracks", color: "from-surface-container-high to-surface-container" },
-          { name: "Lo-Fi Beats", count: "12.1k tracks", color: "from-tertiary-container to-tertiary" },
-          { name: "Hip-Hop", count: "9.8k tracks", color: "from-primary-container to-secondary-container" },
-          { name: "Jazz Noir", count: "3.2k tracks", color: "from-surface-container-high to-primary-container" }
-        ],
-        playlists: [
-          { id: 1, title: "Late Night Subterranean Drive", subtitle: "24 tracks • 1h 42m", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=150&auto=format&fit=crop&q=80" },
-          { id: 2, title: "Cyberpunk VIP Lounge", subtitle: "18 tracks • 1h 15m", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=150&auto=format&fit=crop&q=80" },
-          { id: 3, title: "Deep Focus & Binary Rain", subtitle: "32 tracks • 2h 10m", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=150&auto=format&fit=crop&q=80" }
-        ],
-        recent: [
-          { id: 1, title: "Subterranean Echoes", artist: "Kavinsky & The Void", time: "2 hours ago", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop&q=80" },
-          { id: 2, title: "Neon Genesis", artist: "Aethelgard", time: "Yesterday", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=100&auto=format&fit=crop&q=80" },
-          { id: 3, title: "Midnight Solitude", artist: "Celine Vesper", time: "3 days ago", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&auto=format&fit=crop&q=80" }
-        ]
-      };
+      const musicData = { songs: [], artists: [], albums: [], genres: [], playlists: [], recent: [] };
+
+      // ========== FUNGSI UPDATE FOOTER ==========
+      function updateFooter(track) {
+        if (!track) return;
+        const nameEl = document.getElementById('footer-track-name');
+        const artistEl = document.getElementById('footer-artist-name');
+        const imgEl = document.getElementById('footer-track-img');
+        const durationEl = document.getElementById('footer-duration-total');
+        
+        if (nameEl) nameEl.textContent = track.title || track.name || 'No track selected';
+        if (artistEl) {
+          if (track.artist) artistEl.textContent = track.artist;
+          else if (track.artists) artistEl.textContent = track.artists.map(a => a.name).join(', ');
+          else artistEl.textContent = 'Choose a song to begin';
+        }
+        if (imgEl) {
+          const imgUrl = track.image || (track.album && track.album.image) || (track.images && track.images[0]?.url) || '';
+          if (imgUrl) imgEl.style.backgroundImage = `url('${imgUrl}')`;
+          else imgEl.style.backgroundImage = '';
+        }
+        if (durationEl && track.durationMs) {
+          const sec = Math.floor(track.durationMs / 1000);
+          durationEl.textContent = `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;
+        }
+        // Reset durasi saat ini (opsional)
+        const currentEl = document.getElementById('footer-duration-current');
+        if (currentEl) currentEl.textContent = '0:00';
+        if (durationEl && !track.durationMs) durationEl.textContent = '0:00';
+      }
 
       function renderTrendingSongs() {
         const container = document.getElementById('trending-songs-list');
         container.innerHTML = musicData.songs.map(song => `
-          <div class="flex items-center justify-between p-space-3 rounded-xl bg-surface-container/60 hover:bg-surface-container-high transition-colors group">
+          <div class="flex items-center justify-between p-space-3 rounded-xl bg-surface-container/60 hover:bg-surface-container-high transition-colors group" data-track-id="${song.id}">
             <div class="flex items-center gap-space-4">
               <span class="text-headline-sm text-primary font-headline-sm w-8">${song.rank}</span>
               <div class="w-12 h-12 rounded-lg bg-surface-container-highest overflow-hidden relative flex-shrink-0">
@@ -389,7 +378,7 @@
             <div class="flex items-center gap-space-4 md:gap-space-6">
               <span class="text-body-sm text-on-surface-variant hidden md:inline">${song.plays} plays</span>
               <span class="text-body-sm text-on-surface-variant">${song.duration}</span>
-              <button class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-110 transition-transform">
+              <button type="button" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-110 transition-transform play-track-btn" data-track-id="${song.id}" data-preview-url="${song.previewUrl || ''}" data-title="${song.title}" data-artist="${song.artist}" data-image="${song.image}">
                 <span class="material-symbols-outlined text-[18px]">play_arrow</span>
               </button>
               <button class="text-on-surface-variant hover:text-primary transition-colors hidden sm:inline">
@@ -554,33 +543,6 @@
           });
         }
 
-        const searchModal = document.getElementById('search-modal');
-        const closeSearch = document.getElementById('close-search');
-        const modalInput = document.getElementById('modal-search-input');
-        const desktopSearch = document.getElementById('desktop-search-trigger');
-        const mobileSearch = document.getElementById('mobile-search-trigger');
-
-        if (desktopSearch && searchModal) {
-          desktopSearch.addEventListener('click', () => {
-            searchModal.classList.remove('hidden');
-            searchModal.classList.add('flex');
-            modalInput.focus();
-          });
-        }
-        if (mobileSearch && searchModal) {
-          mobileSearch.addEventListener('click', () => {
-            searchModal.classList.remove('hidden');
-            searchModal.classList.add('flex');
-            modalInput.focus();
-          });
-        }
-        if (closeSearch && searchModal) {
-          closeSearch.addEventListener('click', () => {
-            searchModal.classList.add('hidden');
-            searchModal.classList.remove('flex');
-          });
-        }
-
         const drawer = document.getElementById('mobile-drawer');
         const openDrawer = document.getElementById('open-drawer');
         const closeDrawer = document.getElementById('close-drawer');
@@ -598,16 +560,36 @@
           });
         }
 
+        const sidebarTargets = {
+          home: 'hero-section', discover: 'genres-section', trending: 'trending-section',
+          artists: 'artists-section', albums: 'albums-section', playlists: 'playlists-section',
+          'recently-played': 'recently-played-section'
+        };
+        document.querySelectorAll('[data-path]').forEach(link => {
+          link.addEventListener('click', event => {
+            const path = link.dataset.path;
+            if (path === 'profile') return;
+            event.preventDefault();
+            const target = document.getElementById(sidebarTargets[path]);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            else window.auraToast?.(`${link.textContent.trim()} belum memiliki data.`);
+            document.querySelectorAll('[data-path]').forEach(item => {
+              item.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
+              item.classList.add('text-on-surface-variant');
+              item.removeAttribute('aria-current');
+            });
+            document.querySelectorAll(`[data-path="${path}"]`).forEach(item => {
+              item.classList.remove('text-on-surface-variant');
+              item.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+              item.setAttribute('aria-current', 'page');
+            });
+            drawer?.classList.add('hidden');
+            drawer?.classList.remove('flex');
+          });
+        });
+
         window.addEventListener('keydown', (e) => {
-          if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-            e.preventDefault();
-            searchModal.classList.remove('hidden');
-            searchModal.classList.add('flex');
-            modalInput.focus();
-          }
           if (e.key === 'Escape') {
-            searchModal.classList.add('hidden');
-            searchModal.classList.remove('flex');
             drawer.classList.add('hidden');
             drawer.classList.remove('flex');
           }
@@ -626,15 +608,16 @@
       });
     </script>
 </main>
-<!-- Responsive Footer Player -->
+
+<!-- Footer Player -->
 <footer class="fixed bottom-2 md:bottom-space-margin left-4 right-4 md:left-72 md:right-space-margin h-20 bg-surface-container/90 backdrop-blur-2xl z-40 flex items-center justify-between px-4 md:px-space-6 rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.6)] border border-primary/20">
 <div class="flex items-center gap-space-4 w-2/3 md:w-1/4">
-<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-primary">album</span>
+<div id="footer-track-img" class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden flex items-center justify-center flex-shrink-0" style="background-image: url(''); background-size: cover; background-position: center;">
+  <span class="material-symbols-outlined text-primary" style="display: none;">album</span>
 </div>
 <div class="min-w-0">
-<div class="text-body-md font-medium text-on-surface truncate">Subterranean Echoes</div>
-<div class="text-body-sm text-on-surface-variant truncate">Kavinsky &amp; The Void</div>
+<div id="footer-track-name" class="text-body-md font-medium text-on-surface truncate">No track selected</div>
+<div id="footer-artist-name" class="text-body-sm text-on-surface-variant truncate">Choose a song to begin</div>
 </div>
 <button class="text-on-surface-variant hover:text-primary transition-colors ml-space-2 hidden sm:inline">
 <span class="material-symbols-outlined text-[20px]">favorite</span>
@@ -642,20 +625,20 @@
 </div>
 <div class="hidden md:flex flex-col items-center gap-space-1 w-2/4 max-w-xl">
 <div class="flex items-center gap-space-6">
-<button class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">shuffle</span></button>
-<button class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">skip_previous</span></button>
-<button class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">play_arrow</span></button>
-<button class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">skip_next</span></button>
-<button class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">repeat</span></button>
+<button type="button" id="footer-shuffle-btn" class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">shuffle</span></button>
+<button type="button" id="footer-previous-btn" class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">skip_previous</span></button>
+<button type="button" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary hover:scale-105 transition-transform" id="footer-play-btn"><span class="material-symbols-outlined text-[24px]">play_arrow</span></button>
+<button type="button" id="footer-next-btn" class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">skip_next</span></button>
+<button type="button" id="footer-repeat-btn" class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">repeat</span></button>
 </div>
 <div class="flex items-center gap-space-3 w-full">
-<span class="text-body-sm text-on-surface-variant">1:24</span>
-<div class="flex-1 h-1 bg-surface-container-high rounded-full overflow-hidden relative cursor-pointer"><div class="absolute left-0 top-0 bottom-0 w-1/3 bg-primary rounded-full"></div></div>
-<span class="text-body-sm text-on-surface-variant">3:45</span>
+<span class="text-body-sm text-on-surface-variant" id="footer-duration-current">0:00</span>
+<div class="flex-1 h-1 bg-surface-container-high rounded-full overflow-hidden relative cursor-pointer" id="footer-progress-bar"><div class="absolute left-0 top-0 bottom-0 w-0 bg-primary rounded-full" id="footer-progress"></div></div>
+<span class="text-body-sm text-on-surface-variant" id="footer-duration-total">0:00</span>
 </div>
 </div>
 <div class="flex items-center gap-space-4 w-1/3 md:w-1/4 justify-end">
-<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg md:hidden">
+<button type="button" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg md:hidden" id="footer-play-mobile">
 <span class="material-symbols-outlined">play_arrow</span>
 </button>
 <div class="hidden md:flex items-center gap-space-1">
@@ -665,241 +648,480 @@
 <span class="w-1 h-4 bg-secondary rounded-full animate-pulse delay-200"></span>
 </div>
 <span class="material-symbols-outlined text-on-surface-variant text-[20px] hidden md:inline">volume_up</span>
-<div class="w-20 h-1 bg-surface-container-high rounded-full overflow-hidden relative cursor-pointer hidden md:block">
-<div class="absolute left-0 top-0 bottom-0 w-3/4 bg-on-surface rounded-full"></div>
+<div class="w-20 h-1 bg-surface-container-high rounded-full overflow-hidden relative cursor-pointer hidden md:block" id="footer-volume-bar">
+<div class="absolute left-0 top-0 bottom-0 w-3/4 bg-on-surface rounded-full" id="footer-volume-level"></div>
 </div>
 </div>
 </footer>
 </div>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <script>
-      (() => {
-        const api = async (path, options = {}) => {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), options.timeout || 10000);
-          try {
-            const response = await fetch(path, { signal: controller.signal });
-            const payload = await response.json();
-            if (!response.ok || !payload.success) throw new Error(payload.error?.message || 'Unable to load music data');
-            return payload.data;
-          } finally {
-            clearTimeout(timer);
-          }
-        };
 
-        let spotifyPlayer = null;
-        let spotifyDeviceId = null;
-        let spotifyPlayerReady = null;
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+  (() => {
+    const api = async (path, options = {}) => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), options.timeout || 10000);
+      try {
+        const response = await fetch(path, { signal: controller.signal });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error?.message || 'Unable to load music data');
+        return payload.data;
+      } finally {
+        clearTimeout(timer);
+      }
+    };
 
-        async function ensureSpotifyToken() {
-          const response = await fetch('/api/spotify/token', { credentials: 'include', cache: 'no-store' });
-          if (response.status === 401) return null;
-          const payload = await response.json();
-          if (!response.ok || !payload.data?.accessToken) throw new Error(payload.error?.message || 'Spotify user session unavailable');
-          return payload.data.accessToken;
-        }
+    let spotifyPlayer = null;
+    let spotifyDeviceId = null;
+    let spotifyPlayerReady = null;
+    let currentAudio = null; // untuk preview
+    let currentTrack = null;
+    let isPlaying = false;
+    let repeatMode = false;
+    let shuffleMode = false;
 
-        function spotifyTokenAvailable() {
-          return fetch('/api/spotify/token', { credentials: 'include', cache: 'no-store' }).then(response => response.ok);
-        }
+    function updatePlayButton() {
+      const icon = isPlaying ? 'pause' : 'play_arrow';
+      ['footer-play-btn', 'footer-play-mobile'].forEach(id => {
+        const button = document.getElementById(id);
+        const iconEl = button?.querySelector('.material-symbols-outlined');
+        if (iconEl) iconEl.textContent = icon;
+        if (button) button.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
+      });
+    }
 
-        function startSpotifyLogin() {
-          window.location.assign('/api/spotify/login');
-        }
+    async function ensureSpotifyToken() {
+      const response = await fetch('/api/spotify/token', { credentials: 'include', cache: 'no-store' });
+      if (response.status === 401) return null;
+      const payload = await response.json();
+      if (!response.ok || !payload.data?.accessToken) throw new Error(payload.error?.message || 'Spotify user session unavailable');
+      return payload.data.accessToken;
+    }
 
-        async function handleSpotifyCallback() {
-          const params = new URLSearchParams(window.location.search);
-          if (params.has('spotify_error')) console.warn('[AURA] Spotify authorization error', params.get('spotify_error'));
-        }
+    function spotifyTokenAvailable() {
+      return fetch('/api/spotify/token', { credentials: 'include', cache: 'no-store' }).then(response => response.ok);
+    }
 
-        async function spotifyApi(path, options = {}) {
-          const token = await ensureSpotifyToken();
-          if (!token) { startSpotifyLogin(); return null; }
-          const response = await fetch(`https://api.spotify.com/v1${path}`, { ...options, headers: { ...(options.headers || {}), Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } });
-          if (!response.ok && response.status !== 204) throw new Error(`Spotify playback request failed (${response.status})`);
-          return response.status === 204 ? null : response.json();
-        }
+    function startSpotifyLogin() {
+      window.location.assign('/api/spotify/login');
+    }
 
-        function initSpotifyPlayer() {
-          if (spotifyPlayerReady) return spotifyPlayerReady;
-          spotifyPlayerReady = new Promise((resolve, reject) => {
-            if (!window.Spotify) return reject(new Error('Spotify Web Playback SDK is not ready'));
-            spotifyPlayer = new Spotify.Player({ name: 'Aura Web Player', volume: 0.8, getOAuthToken: async callback => callback(await ensureSpotifyToken()) });
-            spotifyPlayer.addListener('ready', ({ device_id }) => { spotifyDeviceId = device_id; resolve(spotifyPlayer); });
-            spotifyPlayer.addListener('initialization_error', ({ message }) => reject(new Error(message)));
-            spotifyPlayer.addListener('authentication_error', ({ message }) => reject(new Error(message)));
-            spotifyPlayer.addListener('account_error', ({ message }) => reject(new Error(message)));
-            spotifyPlayer.connect().then(connected => { if (!connected) reject(new Error('Spotify player could not connect')); });
-          });
-          return spotifyPlayerReady;
-        }
+    async function handleSpotifyCallback() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('spotify_error')) console.warn('[AURA] Spotify authorization error', params.get('spotify_error'));
+    }
 
-        async function playSpotifyTrack(trackId) {
-          const token = await ensureSpotifyToken();
-          if (!token) { startSpotifyLogin(); return null; }
-          const player = await initSpotifyPlayer();
-          if (!spotifyDeviceId) throw new Error('Spotify playback device is not ready');
-          await spotifyApi('/me/player', { method: 'PUT', body: JSON.stringify({ device_ids: [spotifyDeviceId], play: true }) });
-          await spotifyApi(`/me/player/play?device_id=${encodeURIComponent(spotifyDeviceId)}`, { method: 'PUT', body: JSON.stringify({ uris: [`spotify:track:${trackId}`] }) });
-          return player;
-        }
+    async function spotifyApi(path, options = {}) {
+      const token = await ensureSpotifyToken();
+      if (!token) { startSpotifyLogin(); return null; }
+      const response = await fetch(`https://api.spotify.com/v1${path}`, { ...options, headers: { ...(options.headers || {}), Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      if (!response.ok && response.status !== 204) throw new Error(`Spotify playback request failed (${response.status})`);
+      return response.status === 204 ? null : response.json();
+    }
 
-        window.onSpotifyWebPlaybackSDKReady = () => {
-          spotifyTokenAvailable().then(available => { if (available) initSpotifyPlayer().catch(error => console.warn('[AURA] Spotify player unavailable', error.message)); });
-        };
-
-        const image = item => item?.image || item?.images?.[0]?.url || '';
-        const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
-        const formatDuration = ms => {
-          const seconds = Math.floor((Number(ms) || 0) / 1000);
-          return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
-        };
-
-        function applyHomeData(data) {
-          if (!data) return;
-          if (Array.isArray(data.trending) && data.trending.length) {
-            musicData.songs = data.trending.map((track, index) => ({
-              id: track.id, rank: String(index + 1).padStart(2, '0'), title: track.title,
-              artist: track.artist || (track.artists || []).map(a => a.name).join(', '),
-              plays: track.popularity == null ? '' : `${track.popularity}% popularity`,
-              duration: formatDuration(track.durationMs || track.duration), trend: 'same', image: image(track), previewUrl: track.previewUrl
-            }));
-          }
-          if (Array.isArray(data.artists) && data.artists.length) {
-            musicData.artists = data.artists.map(artist => ({ id: artist.id, name: artist.name, role: (artist.genres || [])[0] || 'Spotify Artist', image: image(artist) }));
-          }
-          if (Array.isArray(data.albums) && data.albums.length) {
-            musicData.albums = data.albums.map(album => ({ id: album.id, title: album.title || album.name, artist: album.artist || '', tracks: `${album.totalTracks || 0} Tracks`, image: image(album) }));
-          }
-          if (Array.isArray(data.playlists) && data.playlists.length) {
-            musicData.playlists = data.playlists.map(playlist => ({ id: playlist.id, title: playlist.title || playlist.name, subtitle: `${playlist.totalTracks || 0} tracks`, image: image(playlist) }));
-          }
-          renderTrendingSongs();
-          renderArtists();
-          renderAlbums();
-          renderPlaylists();
-        }
-
-        function loadHome() {
-          if (!window.EventSource) {
-            api('/api/home').then(applyHomeData).catch(error => console.warn('[AURA] Spotify home unavailable; retaining existing content', error.message));
-            return;
-          }
-          const stream = new EventSource('/api/events');
-          stream.addEventListener('home', event => {
-            try {
-              const payload = JSON.parse(event.data);
-              if (payload.success) applyHomeData(payload.data);
-            } catch (error) {
-              console.warn('[AURA] Invalid home stream payload', error.message);
-            }
-          });
-          stream.addEventListener('server-error', event => {
-            try {
-              const payload = JSON.parse(event.data);
-              console.warn('[AURA] Spotify stream unavailable', payload.error?.message || 'Unknown error');
-            } catch (error) {
-              console.warn('[AURA] Spotify stream unavailable');
-            }
-          });
-          window.auraHomeStream = stream;
-        }
-
-        function renderSearchResults(data) {
-          const container = document.getElementById('search-results-container');
-          const groups = [
-            ['Tracks', data.tracks || [], item => `${item.title} — ${(item.artists || []).map(a => a.name).join(', ')}`, item => item.album?.image],
-            ['Artists', data.artists || [], item => item.name, item => image(item)],
-            ['Albums', data.albums || [], item => item.title || item.name, item => image(item)],
-            ['Playlists', data.playlists || [], item => item.title || item.name, item => image(item)]
-          ];
-          const results = groups.flatMap(([label, items, title, imageOf]) => items.slice(0, 5).map(item => ({ label, item, title: title(item), image: imageOf(item) })));
-          if (!results.length) {
-            container.innerHTML = '<div class="text-body-sm text-on-surface-variant px-space-2 py-space-1">No music found.</div>';
-            return;
-          }
-          container.innerHTML = results.map(result => `
-            <button type="button" class="flex items-center gap-space-3 p-space-2 rounded-lg bg-surface-container-high/50 hover:bg-surface-container-high text-left transition-colors" data-result-type="${result.label.toLowerCase()}" data-result-id="${escapeHtml(result.item.id)}" data-preview-url="${escapeHtml(result.item.previewUrl || '')}" data-spotify-url="${escapeHtml(result.item.spotifyUrl || '')}">
-              <div class="w-10 h-10 rounded-lg bg-surface-container-highest bg-cover bg-center flex-shrink-0" style="background-image:url('${escapeHtml(result.image || '')}')"></div>
-              <span class="min-w-0"><span class="block text-body-md text-on-surface truncate">${escapeHtml(result.title)}</span><span class="block text-body-sm text-on-surface-variant">${result.label}</span></span>
-            </button>`).join('');
-        }
-
-        function initSpotifySearch() {
-          const input = document.getElementById('modal-search-input');
-          if (!input) return;
-          let timer;
-          input.addEventListener('input', () => {
-            clearTimeout(timer);
-            const query = input.value.trim();
-            if (!query) return;
-            timer = setTimeout(async () => {
-              try { renderSearchResults(await api(`/api/search?q=${encodeURIComponent(query)}`)); }
-              catch (error) { document.getElementById('search-results-container').innerHTML = `<div class="text-body-sm text-on-surface-variant px-space-2 py-space-1">${escapeHtml(error.message)}</div>`; }
-            }, 350);
-          });
-        }
-
-        function initPreviewPlayer() {
-          const audio = document.createElement('audio');
-          audio.preload = 'none';
-          let currentTrack = null;
-          const playTrack = track => {
-            if (!track) return;
-            currentTrack = track;
-            if (track.previewUrl) {
-              audio.src = track.previewUrl;
-              audio.play().catch(() => {});
-              return;
-            }
-            playSpotifyTrack(track.id).catch(async error => {
-              console.warn('[AURA] Spotify playback unavailable', error.message);
-              if (!(await spotifyTokenAvailable())) startSpotifyLogin();
-            });
-          };
-          document.addEventListener('click', event => {
-            const button = event.target.closest('button');
-            if (!button) return;
-            const resultRow = button.closest('[data-result-type]');
-            if (resultRow) {
-              const previewUrl = resultRow.dataset.previewUrl || '';
-              const spotifyUrl = resultRow.dataset.spotifyUrl || '';
-              if (resultRow.dataset.resultType === 'tracks') {
-                playTrack({ id: resultRow.dataset.resultId, previewUrl, spotifyUrl });
-                document.getElementById('close-search')?.click();
-              } else if (spotifyUrl) {
-                window.open(spotifyUrl, '_blank', 'noopener,noreferrer');
-              }
-              return;
-            }
-            const row = button.closest('[data-track-id]');
-            if (row && button.querySelector('.material-symbols-outlined')?.textContent.trim() === 'play_arrow') {
-              const track = musicData.songs.find(item => String(item.id) === row.dataset.trackId);
-              playTrack(track);
-            }
-          });
-          window.auraAudio = audio;
-          window.auraPlayTrack = playTrack;
-          window.auraCurrentTrack = () => currentTrack;
-        }
-
-        const originalRenderTrendingSongs = renderTrendingSongs;
-        renderTrendingSongs = function() {
-          originalRenderTrendingSongs();
-          [...document.querySelectorAll('#trending-songs-list > div')].forEach((row, index) => {
-            const track = musicData.songs[index];
-            if (track) row.dataset.trackId = track.id;
-          });
-        };
-
-        document.addEventListener('DOMContentLoaded', async () => {
-          const loginButton = document.getElementById('spotify-login');
-          if (loginButton) loginButton.addEventListener('click', async event => { event.preventDefault(); if (await spotifyTokenAvailable()) initSpotifyPlayer().catch(error => console.warn('[AURA] Spotify player unavailable', error.message)); else startSpotifyLogin(); });
-          try { await handleSpotifyCallback(); } catch (error) { console.warn('[AURA] Spotify login unavailable', error.message); }
-          initSpotifySearch();
-          initPreviewPlayer();
-          loadHome();
+    function initSpotifyPlayer() {
+      if (spotifyPlayerReady) return spotifyPlayerReady;
+      spotifyPlayerReady = new Promise((resolve, reject) => {
+        if (!window.Spotify) return reject(new Error('Spotify Web Playback SDK is not ready'));
+        spotifyPlayer = new Spotify.Player({ name: 'Aura Web Player', volume: 0.8, getOAuthToken: async callback => callback(await ensureSpotifyToken()) });
+        
+        spotifyPlayer.addListener('ready', ({ device_id }) => { 
+          spotifyDeviceId = device_id; 
+          resolve(spotifyPlayer); 
         });
-      })();
-    </script>
+        
+        spotifyPlayer.addListener('player_state_changed', state => {
+          isPlaying = Boolean(state?.isPlaying);
+          updatePlayButton();
+          if (!state) return;
+          if (state && state.track_window && state.track_window.current_track) {
+            const t = state.track_window.current_track;
+            currentTrack = { id: t.id, title: t.name, artist: t.artists.map(a => a.name).join(', '), image: t.album.images[0]?.url || '', durationMs: t.duration_ms };
+            if (window.updateFooter) {
+              window.updateFooter({
+                id: t.id,
+                title: t.name,
+                artist: t.artists.map(a => a.name).join(', '),
+                artists: t.artists,
+                image: t.album.images[0]?.url || '',
+                durationMs: t.duration_ms
+              });
+            }
+            // Update progress
+            if (typeof state.position === 'number') {
+              const sec = Math.floor(state.position / 1000);
+              const currentEl = document.getElementById('footer-duration-current');
+              if (currentEl) currentEl.textContent = `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;
+              const progress = document.getElementById('footer-progress');
+              if (progress && state.track_window.current_track.duration_ms) {
+                const pct = state.position / state.track_window.current_track.duration_ms;
+                progress.style.width = `${Math.min(100, pct * 100)}%`;
+              }
+            }
+          }
+        });
+
+        spotifyPlayer.addListener('initialization_error', ({ message }) => reject(new Error(message)));
+        spotifyPlayer.addListener('authentication_error', ({ message }) => reject(new Error(message)));
+        spotifyPlayer.addListener('account_error', ({ message }) => reject(new Error(message)));
+        spotifyPlayer.connect().then(connected => { if (!connected) reject(new Error('Spotify player could not connect')); });
+      }).catch(error => {
+        spotifyPlayerReady = null;
+        spotifyPlayer = null;
+        spotifyDeviceId = null;
+        throw error;
+      });
+      return spotifyPlayerReady;
+    }
+
+    async function playSpotifyTrack(trackId) {
+      const token = await ensureSpotifyToken();
+      if (!token) {
+        const error = new Error('Spotify login required');
+        error.code = 'SPOTIFY_LOGIN_REQUIRED';
+        throw error;
+      }
+      const player = await initSpotifyPlayer();
+      if (!spotifyDeviceId) throw new Error('Spotify playback device is not ready');
+      await spotifyApi('/me/player', { method: 'PUT', body: JSON.stringify({ device_ids: [spotifyDeviceId], play: true }) });
+      await spotifyApi(`/me/player/play?device_id=${encodeURIComponent(spotifyDeviceId)}`, { method: 'PUT', body: JSON.stringify({ uris: [`spotify:track:${trackId}`] }) });
+      return player;
+    }
+
+    async function togglePlayback() {
+      if (currentAudio) {
+        if (currentAudio.paused) {
+          await currentAudio.play();
+          isPlaying = true;
+        } else {
+          currentAudio.pause();
+          isPlaying = false;
+        }
+        updatePlayButton();
+        return;
+      }
+      if (!spotifyPlayer) {
+        if (!currentTrack?.id) {
+          showPlaybackMessage('Pilih lagu terlebih dahulu.', 'error');
+          return;
+        }
+        await playSpotifyTrack(currentTrack.id);
+        return;
+      }
+      await spotifyPlayer.togglePlay();
+    }
+
+    async function seekPlayback(event) {
+      const bar = event.currentTarget;
+      const ratio = Math.max(0, Math.min(1, (event.clientX - bar.getBoundingClientRect().left) / bar.clientWidth));
+      if (currentAudio && Number.isFinite(currentAudio.duration)) {
+        currentAudio.currentTime = ratio * currentAudio.duration;
+      } else if (spotifyPlayer && currentTrack?.durationMs) {
+        await spotifyPlayer.seek(Math.round(ratio * currentTrack.durationMs));
+      }
+    }
+
+    async function skipPlayback(direction) {
+      if (!spotifyPlayer) {
+        showPlaybackMessage('Skip tersedia setelah Spotify Web Player aktif.', 'error');
+        return;
+      }
+      if (direction === 'next') await spotifyPlayer.nextTrack();
+      else await spotifyPlayer.previousTrack();
+    }
+
+    async function setVolume(event) {
+      const bar = event.currentTarget;
+      const ratio = Math.max(0, Math.min(1, (event.clientX - bar.getBoundingClientRect().left) / bar.clientWidth));
+      if (!spotifyPlayer) return;
+      await spotifyPlayer.setVolume(ratio);
+      const level = document.getElementById('footer-volume-level');
+      if (level) level.style.width = `${ratio * 100}%`;
+    }
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      spotifyTokenAvailable().then(available => { if (available) initSpotifyPlayer().catch(error => console.warn('[AURA] Spotify player unavailable', error.message)); });
+    };
+
+    const image = item => item?.image || item?.images?.[0]?.url || '';
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+    const formatDuration = ms => {
+      const seconds = Math.floor((Number(ms) || 0) / 1000);
+      return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+    };
+
+    function applyHomeData(data) {
+      if (!data) return;
+      if (Array.isArray(data.trending) && data.trending.length) {
+        musicData.songs = data.trending.map((track, index) => ({
+          id: track.id, rank: String(index + 1).padStart(2, '0'), title: track.title,
+          artist: track.artist || (track.artists || []).map(a => a.name).join(', '),
+          plays: track.popularity == null ? '' : `${track.popularity}% popularity`,
+          duration: formatDuration(track.durationMs || track.duration), trend: 'same', image: image(track), previewUrl: track.previewUrl
+        }));
+      }
+      if (Array.isArray(data.artists) && data.artists.length) {
+        musicData.artists = data.artists.map(artist => ({ id: artist.id, name: artist.name, role: (artist.genres || [])[0] || 'Spotify Artist', image: image(artist) }));
+      }
+      if (Array.isArray(data.albums) && data.albums.length) {
+        musicData.albums = data.albums.map(album => ({ id: album.id, title: album.title || album.name, artist: album.artist || '', tracks: `${album.totalTracks || 0} Tracks`, image: image(album) }));
+      }
+      if (Array.isArray(data.playlists) && data.playlists.length) {
+        musicData.playlists = data.playlists.map(playlist => ({ id: playlist.id, title: playlist.title || playlist.name, subtitle: `${playlist.totalTracks || 0} tracks`, image: image(playlist) }));
+      }
+      renderTrendingSongs();
+      renderArtists();
+      renderAlbums();
+      renderPlaylists();
+    }
+
+    function loadHome() {
+      if (!window.EventSource) {
+        api('/api/home').then(applyHomeData).catch(error => console.warn('[AURA] Spotify home unavailable; retaining existing content', error.message));
+        return;
+      }
+      const stream = new EventSource('/api/events');
+      stream.addEventListener('home', event => {
+        try {
+          const payload = JSON.parse(event.data);
+          if (payload.success) {
+            applyHomeData(payload.data);
+          } else {
+            console.warn('[AURA] Server unable to load fresh data:', payload.error?.message);
+          }
+        } catch (error) {
+          console.warn('[AURA] Invalid home stream payload', error.message);
+        }
+      });
+      stream.addEventListener('server-error', event => {
+        try {
+          const payload = JSON.parse(event.data);
+          console.warn('[AURA] Spotify stream unavailable', payload.error?.message || 'Unknown error');
+        } catch (error) {
+          console.warn('[AURA] Spotify stream unavailable');
+        }
+      });
+      window.auraHomeStream = stream;
+    }
+
+    // ========== RENDER SEARCH RESULTS (untuk section) ==========
+    function renderSearchResults(data, query) {
+      const section = document.getElementById('search-results-section');
+      const queryText = document.getElementById('search-query-text');
+      const container = document.getElementById('search-results-list');
+      
+      const groups = [
+        ['Tracks', data.tracks || [], item => `${item.title} — ${(item.artists || []).map(a => a.name).join(', ')}`, item => image(item)],
+        ['Artists', data.artists || [], item => item.name, item => image(item)],
+        ['Albums', data.albums || [], item => item.title || item.name, item => image(item)],
+        ['Playlists', data.playlists || [], item => item.title || item.name, item => image(item)]
+      ];
+      const results = groups.flatMap(([label, items, title, imageOf]) => items.slice(0, 5).map(item => ({ label, item, title: title(item), image: imageOf(item) })));
+      
+      if (!results.length) {
+        section.style.display = 'none';
+        return;
+      }
+
+      queryText.textContent = query;
+      section.style.display = 'block';
+
+      container.innerHTML = results.map(result => `
+        <div class="flex items-center justify-between p-space-3 rounded-xl bg-surface-container/60 hover:bg-surface-container transition-colors group" data-result-type="${result.label.toLowerCase()}" data-result-id="${escapeHtml(result.item.id)}" data-preview-url="${escapeHtml(result.item.previewUrl || '')}" data-spotify-url="${escapeHtml(result.item.spotifyUrl || '')}" data-title="${escapeHtml(result.title)}" data-artist="${escapeHtml(result.item.artist || (result.item.artists ? result.item.artists.map(a => a.name).join(', ') : ''))}" data-image="${escapeHtml(result.image || '')}">
+          <div class="flex items-center gap-space-4">
+            <div class="w-12 h-12 rounded-lg bg-surface-container-highest bg-cover bg-center flex-shrink-0" style="background-image:url('${escapeHtml(result.image || '')}')"></div>
+            <div>
+              <div class="text-body-lg font-medium text-on-surface group-hover:text-primary transition-colors">${escapeHtml(result.title)}</div>
+              <div class="text-body-sm text-on-surface-variant">${result.label}</div>
+            </div>
+          </div>
+              <button type="button" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-110 transition-transform play-search-result" data-result-id="${escapeHtml(result.item.id)}" data-preview-url="${escapeHtml(result.item.previewUrl || '')}" data-title="${escapeHtml(result.title)}" data-artist="${escapeHtml(result.item.artist || (result.item.artists ? result.item.artists.map(a => a.name).join(', ') : ''))}" data-image="${escapeHtml(result.image || '')}">
+            <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // ========== FUNGSI PEMUTARAN UTAMA ==========
+    function showPlaybackMessage(message, tone = 'info') {
+      let notice = document.getElementById('playback-notice');
+      if (!notice) {
+        notice = document.createElement('div');
+        notice.id = 'playback-notice';
+        notice.setAttribute('role', 'status');
+        notice.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] rounded-xl px-4 py-3 text-sm shadow-2xl border backdrop-blur-xl';
+        document.body.appendChild(notice);
+      }
+      notice.classList.remove('border-primary/40', 'bg-surface-container/95', 'text-on-surface', 'border-error/40', 'text-error');
+      notice.classList.add(tone === 'error' ? 'border-error/40' : 'border-primary/40', 'bg-surface-container/95', tone === 'error' ? 'text-error' : 'text-on-surface');
+      notice.textContent = message;
+      clearTimeout(showPlaybackMessage.timer);
+      showPlaybackMessage.timer = setTimeout(() => notice.remove(), 6500);
+    }
+    window.auraToast = showPlaybackMessage;
+
+    const playTrack = (track) => {
+      if (!track) return;
+      currentTrack = track;
+      isPlaying = false;
+      updatePlayButton();
+      // Hentikan preview sebelumnya jika ada
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      // Update footer
+      if (window.updateFooter) window.updateFooter(track);
+      
+      // Jika ada previewUrl, mainkan via audio element
+      if (track.previewUrl) {
+        const audio = new Audio(track.previewUrl);
+        currentAudio = audio;
+        audio.play().catch(err => {
+          console.warn('Preview play error:', err);
+          showPlaybackMessage('Browser menolak pemutaran audio. Coba klik play lagi.', 'error');
+        });
+        audio.addEventListener('play', () => { isPlaying = true; updatePlayButton(); });
+        audio.addEventListener('pause', () => { isPlaying = false; updatePlayButton(); });
+        audio.addEventListener('ended', () => { currentAudio = null; isPlaying = false; updatePlayButton(); });
+        // Update durasi & progress
+        audio.addEventListener('timeupdate', () => {
+          const currentEl = document.getElementById('footer-duration-current');
+          if (currentEl && audio.duration) {
+            const sec = Math.floor(audio.currentTime);
+            currentEl.textContent = `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;
+          }
+          const progress = document.getElementById('footer-progress');
+          if (progress && audio.duration) {
+            const pct = audio.currentTime / audio.duration;
+            progress.style.width = `${Math.min(100, pct * 100)}%`;
+          }
+        });
+        return;
+      }
+      
+      // Jika tidak ada preview, gunakan Spotify Web Playback
+      if (track.id) {
+        playSpotifyTrack(track.id).catch(error => {
+          console.warn('[AURA] Spotify playback error:', error.message);
+          showPlaybackMessage(error.code === 'SPOTIFY_LOGIN_REQUIRED'
+            ? 'Login Spotify terlebih dahulu melalui ikon profil. Pemutaran penuh memerlukan akun Spotify Premium.'
+            : `Pemutaran gagal: ${error.message}`, 'error');
+        });
+      }
+    };
+
+    // ========== EVENT DELEGATION UNTUK TOMBOL PLAY ==========
+    document.addEventListener('click', (e) => {
+      // Tombol play di trending
+      const btn = e.target.closest('.play-track-btn');
+      if (btn) {
+        e.preventDefault();
+        const id = btn.dataset.trackId;
+        const previewUrl = btn.dataset.previewUrl || '';
+        const title = btn.dataset.title || 'Unknown';
+        const artist = btn.dataset.artist || 'Unknown Artist';
+        const image = btn.dataset.image || '';
+        const track = { id, title, artist, previewUrl, image, durationMs: 0 };
+        playTrack(track);
+        return;
+      }
+
+      // Tombol play di search results
+      const searchBtn = e.target.closest('.play-search-result');
+      if (searchBtn) {
+        e.preventDefault();
+        const id = searchBtn.dataset.resultId;
+        const previewUrl = searchBtn.dataset.previewUrl || '';
+        const title = searchBtn.dataset.title || 'Unknown';
+        const artist = searchBtn.dataset.artist || 'Unknown Artist';
+        const image = searchBtn.dataset.image || '';
+        const track = { id, title, artist, previewUrl, image, durationMs: 0 };
+        playTrack(track);
+        return;
+      }
+    });
+
+    // ========== SEARCH DI HEADER ==========
+    function initHeaderSearch() {
+      const input = document.getElementById('header-search-input');
+      if (!input) return;
+      let timer;
+      input.addEventListener('input', () => {
+        clearTimeout(timer);
+        const query = input.value.trim();
+        if (!query) {
+          document.getElementById('search-results-section').style.display = 'none';
+          return;
+        }
+        timer = setTimeout(async () => {
+          try {
+            const data = await api(`/api/search?q=${encodeURIComponent(query)}`);
+            renderSearchResults(data, query);
+          } catch (error) {
+            console.warn('Search error:', error);
+            document.getElementById('search-results-section').style.display = 'none';
+          }
+        }, 350);
+      });
+    }
+
+    // ========== CLEAR SEARCH ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      const clearBtn = document.getElementById('clear-search-results');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          document.getElementById('search-results-section').style.display = 'none';
+          const input = document.getElementById('header-search-input');
+          if (input) input.value = '';
+        });
+      }
+
+      // Login Spotify
+      const loginButton = document.getElementById('spotify-login');
+      if (loginButton) {
+        loginButton.addEventListener('click', async (event) => {
+          event.preventDefault(); 
+          if (await spotifyTokenAvailable()) {
+            initSpotifyPlayer().catch(error => console.warn('[AURA] Spotify player unavailable', error.message));
+          } else {
+            startSpotifyLogin();
+          }
+        });
+      }
+
+      handleSpotifyCallback().catch(error => console.warn('[AURA] Spotify login unavailable', error.message));
+      initHeaderSearch();
+      loadHome();
+      
+      const footerPlay = () => togglePlayback().catch(error => {
+        console.warn('[AURA] Playback toggle failed:', error.message);
+        showPlaybackMessage(`Kontrol playback gagal: ${error.message}`, 'error');
+      });
+      document.getElementById('footer-play-btn')?.addEventListener('click', footerPlay);
+      document.getElementById('footer-play-mobile')?.addEventListener('click', footerPlay);
+      document.getElementById('footer-previous-btn')?.addEventListener('click', () => skipPlayback('previous').catch(error => showPlaybackMessage(error.message, 'error')));
+      document.getElementById('footer-next-btn')?.addEventListener('click', () => skipPlayback('next').catch(error => showPlaybackMessage(error.message, 'error')));
+      document.getElementById('footer-progress-bar')?.addEventListener('click', event => seekPlayback(event).catch(error => showPlaybackMessage(error.message, 'error')));
+      document.getElementById('footer-volume-bar')?.addEventListener('click', event => setVolume(event).catch(error => showPlaybackMessage(error.message, 'error')));
+      document.getElementById('footer-shuffle-btn')?.addEventListener('click', async event => {
+        shuffleMode = !shuffleMode;
+        event.currentTarget.classList.toggle('text-primary', shuffleMode);
+        if (spotifyPlayer) await spotifyApi(`/me/player/shuffle?state=${shuffleMode}`, { method: 'PUT' });
+      });
+      document.getElementById('footer-repeat-btn')?.addEventListener('click', async event => {
+        repeatMode = !repeatMode;
+        event.currentTarget.classList.toggle('text-primary', repeatMode);
+        if (spotifyPlayer) await spotifyApi(`/me/player/repeat?state=${repeatMode ? 'context' : 'off'}`, { method: 'PUT' });
+      });
+      updatePlayButton();
+    });
+
+    // Expose fungsi ke global
+    window.updateFooter = updateFooter;
+    window.playTrack = playTrack;
+    window.musicData = musicData;
+
+  })();
+</script>
 </body></html>
