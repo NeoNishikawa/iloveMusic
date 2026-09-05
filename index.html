@@ -731,7 +731,7 @@
         });
         
         spotifyPlayer.addListener('player_state_changed', state => {
-          isPlaying = Boolean(state?.isPlaying);
+          isPlaying = Boolean(state && !state.paused);
           updatePlayButton();
           if (!state) return;
           if (state && state.track_window && state.track_window.current_track) {
@@ -788,27 +788,29 @@
       return player;
     }
 
+    async function getReadySpotifyPlayer() {
+      const token = await ensureSpotifyToken();
+      if (!token) {
+        const error = new Error('Spotify login required');
+        error.code = 'SPOTIFY_LOGIN_REQUIRED';
+        throw error;
+      }
+      return spotifyPlayer || await initSpotifyPlayer();
+    }
+
     async function togglePlayback() {
       if (currentAudio) {
-        if (currentAudio.paused) {
-          await currentAudio.play();
-          isPlaying = true;
-        } else {
-          currentAudio.pause();
-          isPlaying = false;
-        }
-        updatePlayButton();
+        if (currentAudio.paused) await currentAudio.play();
+        else currentAudio.pause();
         return;
       }
-      if (!spotifyPlayer) {
-        if (!currentTrack?.id) {
-          showPlaybackMessage('Pilih lagu terlebih dahulu.', 'error');
-          return;
-        }
-        await playSpotifyTrack(currentTrack.id);
+      const player = await getReadySpotifyPlayer();
+      if (!spotifyDeviceId) throw new Error('Spotify playback device is not ready');
+      if (!currentTrack?.id && !isPlaying) {
+        showPlaybackMessage('Pilih lagu terlebih dahulu.', 'error');
         return;
       }
-      await spotifyPlayer.togglePlay();
+      await player.togglePlay();
     }
 
     async function seekPlayback(event) {
@@ -816,25 +818,23 @@
       const ratio = Math.max(0, Math.min(1, (event.clientX - bar.getBoundingClientRect().left) / bar.clientWidth));
       if (currentAudio && Number.isFinite(currentAudio.duration)) {
         currentAudio.currentTime = ratio * currentAudio.duration;
-      } else if (spotifyPlayer && currentTrack?.durationMs) {
-        await spotifyPlayer.seek(Math.round(ratio * currentTrack.durationMs));
+        return;
       }
+      const player = await getReadySpotifyPlayer();
+      if (currentTrack?.durationMs) await player.seek(Math.round(ratio * currentTrack.durationMs));
     }
 
     async function skipPlayback(direction) {
-      if (!spotifyPlayer) {
-        showPlaybackMessage('Skip tersedia setelah Spotify Web Player aktif.', 'error');
-        return;
-      }
-      if (direction === 'next') await spotifyPlayer.nextTrack();
-      else await spotifyPlayer.previousTrack();
+      const player = await getReadySpotifyPlayer();
+      if (direction === 'next') await player.nextTrack();
+      else await player.previousTrack();
     }
 
     async function setVolume(event) {
       const bar = event.currentTarget;
       const ratio = Math.max(0, Math.min(1, (event.clientX - bar.getBoundingClientRect().left) / bar.clientWidth));
-      if (!spotifyPlayer) return;
-      await spotifyPlayer.setVolume(ratio);
+      const player = await getReadySpotifyPlayer();
+      await player.setVolume(ratio);
       const level = document.getElementById('footer-volume-level');
       if (level) level.style.width = `${ratio * 100}%`;
     }
@@ -1105,14 +1105,20 @@
       document.getElementById('footer-progress-bar')?.addEventListener('click', event => seekPlayback(event).catch(error => showPlaybackMessage(error.message, 'error')));
       document.getElementById('footer-volume-bar')?.addEventListener('click', event => setVolume(event).catch(error => showPlaybackMessage(error.message, 'error')));
       document.getElementById('footer-shuffle-btn')?.addEventListener('click', async event => {
-        shuffleMode = !shuffleMode;
-        event.currentTarget.classList.toggle('text-primary', shuffleMode);
-        if (spotifyPlayer) await spotifyApi(`/me/player/shuffle?state=${shuffleMode}`, { method: 'PUT' });
+        try {
+          shuffleMode = !shuffleMode;
+          event.currentTarget.classList.toggle('text-primary', shuffleMode);
+          await getReadySpotifyPlayer();
+          await spotifyApi(`/me/player/shuffle?state=${shuffleMode}`, { method: 'PUT' });
+        } catch (error) { showPlaybackMessage(`Shuffle gagal: ${error.message}`, 'error'); }
       });
       document.getElementById('footer-repeat-btn')?.addEventListener('click', async event => {
-        repeatMode = !repeatMode;
-        event.currentTarget.classList.toggle('text-primary', repeatMode);
-        if (spotifyPlayer) await spotifyApi(`/me/player/repeat?state=${repeatMode ? 'context' : 'off'}`, { method: 'PUT' });
+        try {
+          repeatMode = !repeatMode;
+          event.currentTarget.classList.toggle('text-primary', repeatMode);
+          await getReadySpotifyPlayer();
+          await spotifyApi(`/me/player/repeat?state=${repeatMode ? 'context' : 'off'}`, { method: 'PUT' });
+        } catch (error) { showPlaybackMessage(`Repeat gagal: ${error.message}`, 'error'); }
       });
       updatePlayButton();
     });
